@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link th:href="@{/myStylesheet.css}" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <script type="text/javascript" th:src="@{/indexFunctions.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="formContainer">
+
+<form id="createForm">
+    <label>Create Form</label><br>
+    <input type="text" id="name" placeholder="Sogn Navn" required><br>
+    <input type="text" id="kommune" placeholder="Sogn Kommune" required><br>
+    <input type="number" id="sognKode" placeholder="Sogn Kode" required><br>
+    <input type="number" id="smitteTryk" step=".01" placeholder="Smittetryk" required><br>
+    <input type="date" id="nedLukning" placeholder="Start på nedlukning"><br>
+    <button type="submit" id="formSubmit">Create</button>
+</form>
+
+<form id="updateForm">
+    <label>Update Form</label><br>
+    <input type="text" id="updateName" placeholder="Sogn Navn" required><br>
+    <input type="text" id="updateKommune" placeholder="Sogn Kommune" required><br>
+    <input type="number" id="updateSognKode" placeholder="Sogn Kode" required><br>
+    <input type="number" id="updateSmitteTryk" step=".01" placeholder="Smittetryk" required><br>
+    <input type="date" id="updateNedLukning" placeholder="Start på nedlukning"><br>
+    <button type="submit" id="updateFormSubmit">Update</button>
+</form>
+
+</div>
+
+<table id="sogneListe">
+    <tr>
+        <th>Navn</th>
+        <th>Sognkode</th>
+        <th>Kommune</th>
+        <th>Smittetryk</th>
+        <th>Status på nedlukning</th>
+        <th></th>
+        <th></th>
+    </tr>
+</table>
+
+<table id="kommuneSmitteTryk">
+    <tr>
+        <th>Kommune</th>
+        <th>Smittetryk</th>
+    </tr>
+</table>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        getSogne();
+        getSmittetryk();
+    });
+
+    $(document).on('click', '#deleteSogn', function() {
+        let id = $(this).val();
+        deleteSogne(id);
+    });
+
+    $(document).on('click', '#formSubmit', function() {
+        createSogn();
+    });
+
+    $(document).on('click', '#updateSogn', function() {
+        let id = $(this).val();
+        updateSogn(id);
+    });
+
+    $(document).on('click', '#updateFormSubmit', function() {
+        let id = $(this).val();
+        updateSognSubmit(id)
+    });
+
+</script>
+
+</body>
+</html>
