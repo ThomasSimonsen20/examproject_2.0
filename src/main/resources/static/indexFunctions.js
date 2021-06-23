@@ -7,6 +7,7 @@ function getSogne() {
         success:function (data) {
             $.each(data, function(index, item) {
                 let id = item.id;
+
                 let datetoday = new Date().toISOString();
                 let lukning;
 
@@ -39,9 +40,11 @@ function deleteSogne(id) {
         url: "sogne/" + id,
         type: "DELETE",
         ContentType:"application/JSON",
-        success:function(data) {
-            console.log(data);
+        success:function() {
             $("tr#" + id).remove();
+        },
+        error:function(){
+           //Hvis man ville give besked på error
         }
     });
 }
@@ -59,9 +62,6 @@ function createSogn() {
         type: "POST",
         contentType: "application/JSON",
         data:JSON.stringify(createSognObject),
-        success:function (){
-            location.reload();
-        }
     });
 }
 
@@ -93,10 +93,7 @@ function updateSognSubmit(id) {
         url: "sogne/" + id,
         type: "PUT",
         contentType: "application/JSON",
-        data:JSON.stringify(updateSognUpdate),
-        success: function () {
-            location.reload();
-        }
+        data:JSON.stringify(updateSognUpdate)
     });
 }
 
@@ -119,13 +116,17 @@ function getSmittetryk() {
                     indbyggertalIKommunen.set(item.kommune.id, item.kommune.indbyggertal);
                 }
             });
-            for (let i = 0; i < ids.size; i++) {
-                $("#kommuneSmitteTryk").append(
-                    "<tr>" +
-                    "<td>" + kommuneName.get(i+1) + "</td>" +
-                    "<td>" + ids.get(i+1)/indbyggertalIKommunen.get(i+1) + "</td>" +
-                    "</tr>"
-                )}
+
+            for (let i = 1; i <= ids.size; i++) {
+                if (ids.get(i) != null) {
+                    $("#kommuneSmitteTryk").append(
+                        "<tr>" +
+                        "<td>" + kommuneName.get(i) + "</td>" +
+                        "<td>" + (ids.get(i) / indbyggertalIKommunen.get(i)).toFixed(5) + "</td>" +
+                        "</tr>"
+                    )}
+
+            }
         }
     });
 }

@@ -17,7 +17,7 @@ public class Kommune {
     private int indbyggertal = 100000;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "kommune")
     private Set<Sogn> sogne;
 
     public Kommune() {
